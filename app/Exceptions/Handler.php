@@ -5,7 +5,6 @@ namespace App\Exceptions;
 use App\Helpers\Telegram;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Support\Facades\Http;
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -22,16 +21,16 @@ class Handler extends ExceptionHandler
     /**
      * A list of the exception types that are not reported.
      *
-     * @var array<int, class-string<\Throwable>>
+     * @var array
      */
     protected $dontReport = [
         //
     ];
 
     /**
-     * A list of the inputs that are never flashed to the session on validation exceptions.
+     * A list of the inputs that are never flashed for validation exceptions.
      *
-     * @var array<int, string>
+     * @var array
      */
     protected $dontFlash = [
         'current_password',
@@ -39,23 +38,24 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
-    protected $telegram;
+    // protected $telegram;
 
-    public function __construct(Container $container, Telegram $telegram)
-    {
-        parent::__construct($container);
-        $this->telegram = $telegram;
-    }
+    // public function __construct(Container $container, Telegram $telegram)
+    // {
+    //     parent::__construct($container);
+    //     $this->telegram = $telegram;
+    // }
 
-    public function report(Throwable $e)
-    {
-        $data = [
-            'description' => $e->getMessage(),
-            'file' => $e->getFile(),
-            'line' => $e->getLine(),
-        ];
-        $this->telegram->sendMessage(env('REPORT_TELEGRAM_ID'), (string)view('report', $data));
-    }
+    // public function report(Throwable $e)
+    // {
+    //     return 'error';
+        // $data = [
+        //     'description' => $e->getMessage(),
+        //     'file' => $e->getFile(),
+        //     'line' => $e->getLine(),
+        // ];
+        // $this->telegram->sendMessage(env('REPORT_TELEGRAM_ID'), (string)view('report', $data));
+    // }
 
     /**
      * Register the exception handling callbacks for the application.

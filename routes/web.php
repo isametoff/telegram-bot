@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return 'Welcome';
+// Route::get('/', function (Order $order) {
+//     return view('site.order', ['orders' => $order->active()->get()]);
+// });
+Route::get('/', function (\App\Models\Order $order) {
+    return view('site.order', ['orders' => $order->active()->get()]);
+});
+
+Route::group(['namespace' => 'App\Http\Controllers'], function () {
+    Route::post('/order/store', [OrderController::class, 'store'])->name('order.store');
 });
